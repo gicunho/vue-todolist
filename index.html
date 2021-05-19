@@ -13,32 +13,39 @@
   </head>
   <body>
       <div id="root" class="container">
-
+        <!-- Input e pulsante per nuova Task -->
         <div id="new_task">
-          <input type="text" placeholder="Add a task here" v-model="task">
+          <input type="text" id="new_task_text" placeholder="Add a task here" v-model="task">
           <button @click="newTask">Add</button>
         </div>
+        <!-- /Input e pulsante per nuova Task -->
+
         <h2>ToDo List</h2>
-        <div id="tasks">
-          <div v-for="(task, index) in tasks">
-            {{task}} 
+        <div id="tasks" v-if="tasks.length > 0">
+          <div v-for="(task, index) in tasks" >
+            <input type="text" v-model="task">
             <i class="fas fa-check-circle" @click="doneTask(index)"></i>
             <i class="fas fa-trash    " @click="removeTask(index)" ></i>
-          </div> 
+          </div>
         </div>
+        <div v-else>Nulla da Fare</div> 
 
+        <!-- Task Completate -->
         <div v-if="doneTasks.length > 0">
           <h2>Done Tasks</h2>
           <div id="done_tasks" v-for="task in doneTasks" >
             <div>{{task}}</div>
           </div>
         </div>
-        
+        <!-- /Task Completate -->
+
+        <!-- Task Rimosse -->
         <div v-if="removedTasks.length > 0">
           <h2>Removed Tasks</h2>
           <div id="removed_tasks" v-for="task in removedTasks">
             {{task}}</div>
           </div>
+        <!-- /Task Rimosse -->
 
       </div>
     <!-- JavaScript -->

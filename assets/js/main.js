@@ -25,6 +25,15 @@ const app = new Vue({
             console.log(this.tasks[index]);
             this.doneTasks.push(this.tasks[index]);
             this.tasks.splice(index, 1)
-        }
+        },
+    },
+    mounted() {
+        document.addEventListener('keyup', (e) => {
+            console.log(e.key);
+             if (e.key === 'Enter' && this.task.length > 3
+             ) {
+                this.newTask();
+            }
+        })
     }
 })

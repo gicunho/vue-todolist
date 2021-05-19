@@ -2,14 +2,17 @@ const app = new Vue({
     el: "#root",
     data: {
         task: '',
+        logo: 'https://www.boolean.careers/images/misc/logo.png',
         tasks: [
             'Fare Benzina',
             'Fare la spesa',
             'Comprare un regalo'
         ],
         doneTasks: [
+            'Fare Benzina',
         ],
         removedTasks: [
+            'Fare Benzina',
         ]
     },
     methods: {
@@ -26,13 +29,31 @@ const app = new Vue({
             this.doneTasks.push(this.tasks[index]);
             this.tasks.splice(index, 1)
         },
+        restoreDoneTasks(index) {
+            this.tasks.push(this.doneTasks[index]);
+            this.doneTasks.splice(index, 1);
+        },
+        restoreRemovedTasks(index) {
+            this.tasks.push(this.removedTasks[index]);
+            this.removedTasks.splice(index, 1);
+        },
+        emptyBin() {
+            let empty = prompt('This will delete all tasks forever! confirm [Y/N]');
+            console.log(empty);
+            if (empty.toLowerCase() === 'y') {
+                this.removedTasks = [];
+            }
+        }
     },
     mounted() {
-        document.addEventListener('keyup', (e) => {
+        document.getElementById('new_task_text').addEventListener('keyup', (e) => {
             console.log(e.key);
-             if (e.key === 'Enter' && this.task.length > 3
-             ) {
-                this.newTask();
+             if (e.key === 'Enter') {
+                if (this.task.length > 3) {
+                    this.newTask();
+                } else {
+                    alert('Attenzione, inserire almento 4 caratteri per poter aggiungere una nuova task')
+                }
             }
         })
     }

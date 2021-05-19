@@ -12,42 +12,72 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-      <div id="root" class="container">
+      <div id="root" class="container text-center ">
+        <img width="500" :src="logo" alt="logo boolean" class="my-3">
         <!-- Input e pulsante per nuova Task -->
         <div id="new_task">
           <input type="text" id="new_task_text" placeholder="Add a task here" v-model="task">
           <button @click="newTask">Add</button>
+          <p>Add a simple task todo</p>
         </div>
         <!-- /Input e pulsante per nuova Task -->
+        <div class="d-flex ">
+              <!-- Task da Fare -->
+            <div id="tasks" v-if="tasks.length > 0" class="lista_task mx-auto">
+              <h2>ToDo List</h2>
+              <div class="task">
+                <div v-for="(task, index) in tasks" >
+                  <input type="text" class="border-0 task" v-model="tasks[index]">
+                  <i class="fas fa-check-circle" @click="doneTask(index)"></i>
+                  <i class="fas fa-trash    " @click="removeTask(index)" ></i>
+                </div>
+              </div>
+            </div>
+            <div v-else>Nulla da Fare</div> 
+            <!-- /Task da Fare -->
 
-        <h2>ToDo List</h2>
-        <div id="tasks" v-if="tasks.length > 0">
-          <div v-for="(task, index) in tasks" >
-            <input type="text" v-model="task">
-            <i class="fas fa-check-circle" @click="doneTask(index)"></i>
-            <i class="fas fa-trash    " @click="removeTask(index)" ></i>
-          </div>
+            <!-- Task Completate -->
+            <div v-if="doneTasks.length > 0" class="mx-auto lista_task">
+              <h2>Done Tasks</h2>
+              <div id="done_tasks" v-for="(task, index) in doneTasks" class="task">
+                {{task}}
+                <i class="fas fa-undo" @click="restoreDoneTasks(index)"></i>
+
+              </div>
+            </div>
+            <!-- /Task Completate -->
+
+            <!-- Task Rimosse -->
+            <div v-if="removedTasks.length > 0" class="mx-auto lista_task">
+              <h2>Removed Tasks</h2>
+              <a href="javascript:void(0)" @click="emptyBin()">Empty bin</a>
+              <div id="removed_tasks" v-for="(task, index) in removedTasks" class="task">
+                {{task}}
+                <i class="fas fa-trash-restore-alt" @click="restoreRemovedTasks(index)"></i>
+                </div>
+
+              </div>
+            <!-- /Task Rimosse -->
         </div>
-        <div v-else>Nulla da Fare</div> 
-
-        <!-- Task Completate -->
-        <div v-if="doneTasks.length > 0">
-          <h2>Done Tasks</h2>
-          <div id="done_tasks" v-for="task in doneTasks" >
-            <div>{{task}}</div>
-          </div>
-        </div>
-        <!-- /Task Completate -->
-
-        <!-- Task Rimosse -->
-        <div v-if="removedTasks.length > 0">
-          <h2>Removed Tasks</h2>
-          <div id="removed_tasks" v-for="task in removedTasks">
-            {{task}}</div>
-          </div>
-        <!-- /Task Rimosse -->
-
       </div>
+      <style>
+        body {
+          background-color: lightblue;
+        }
+        .lista_task{
+          background-color: white;
+          padding: 20px;
+          border-radius: 10px;
+        }
+        input {
+          outline: none;
+        }
+        .task { 
+          background-color: lightgrey;
+          padding: 5px 10px;
+          border-radius: 10px;
+        }
+      </style>
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="./assets/js/main.js"></script>

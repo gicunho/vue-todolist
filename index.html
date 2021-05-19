@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Vue ToDo</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+      <div id="root" class="container">
+
+        <div id="new_task">
+          <input type="text" placeholder="Add a task here" v-model="task">
+          <button @click="newTask">Add</button>
+        </div>
+        <h2>ToDo List</h2>
+        <div id="tasks">
+          <div v-for="(task, index) in tasks">
+            {{task}} 
+            <i class="fas fa-check-circle" @click="doneTask(index)"></i>
+            <i class="fas fa-trash    " @click="removeTask(index)" ></i>
+          </div> 
+        </div>
+
+        <div v-if="doneTasks.length > 0">
+          <h2>Done Tasks</h2>
+          <div id="done_tasks" v-for="task in doneTasks" >
+            <div>{{task}}</div>
+          </div>
+        </div>
+        
+        <div v-if="removedTasks.length > 0">
+          <h2>Removed Tasks</h2>
+          <div id="removed_tasks" v-for="task in removedTasks">
+            {{task}}</div>
+          </div>
+
+      </div>
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="./assets/js/main.js"></script>
+  </body>
+</html>
